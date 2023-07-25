@@ -10,9 +10,7 @@ collisionCanvas.height = window.innerHeight;
 const startBtn = document.querySelector('.btnStart');
 const restartBtn = document.querySelector('.btnRestart');
 
-const music = new Audio();
-music.src = 'music.mp3';
-
+let music = new Audio();
 let score = 0;
 let gameOver = false;
 ctx.font = '50px Impact';
@@ -184,6 +182,10 @@ function drawGameOver() {
 		canvas.height / 2 + 5
 	);
 	restartBtn.style.display = 'block';
+	music.pause();
+	const overmusic = new Audio();
+	overmusic.src = 'over.wav';
+	overmusic.play();
 }
 
 window.addEventListener('click', function (e) {
@@ -232,9 +234,10 @@ function animate(timestamp) {
 
 startBtn.addEventListener('click', () => {
 	animate(0);
-	music.play();
 	gameOver = false;
 	startBtn.style.display = 'none';
+	music.src = 'music.mp3';
+	music.play();
 });
 restartBtn.addEventListener('click', () => {
 	score = 0;
@@ -246,4 +249,6 @@ restartBtn.addEventListener('click', () => {
 	restartBtn.style.display = 'none';
 	lastTime = performance.now();
 	animate(lastTime);
+	music.src = 'music.mp3';
+	music.play();
 });
